@@ -17,4 +17,3 @@ def webOuter(webUrl):
 list = webOuter("http://www.tudou.com/")
 for i in list:
     print i
-
