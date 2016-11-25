@@ -8,7 +8,8 @@ def webInter(webUrl):
 
     webInterList = set()
     webSoup = BeautifulSoup(requests.get(webUrl).text, "lxml")
-    for newWebUrl in webSoup.findAll('a', href=re.compile("^/+..*")):
+    #find 'href' start head '/',at least 2 characters
+    for newWebUrl in webSoup.findAll('a', href=re.compile("^/..*")):
         if newWebUrl is not None:
             webInterList.add(newWebUrl.attrs['href'])
 
@@ -20,13 +21,14 @@ def webOuter(webUrl):
 
     webOuterList = set()
     webSoup = BeautifulSoup(requests.get(webUrl).text, "lxml")
+    # find 'href' start head 'http' or 'www'
     for newWebUrl in webSoup.findAll('a', href=re.compile("^(http|www).*")):
     # for newWebUrl in webSoup.findAll('a', href=re.compile("^(?!/)+.*")):
         if newWebUrl is not None:
             webOuterList.add(newWebUrl.attrs['href'])
 
     return webOuterList
-c=str(input())
+c=input()
 print c
 b=webInter(c)
 print "webInter is:"

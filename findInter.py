@@ -8,13 +8,10 @@ def webInter(webUrl):
 
     webInterList = set()
     webSoup = BeautifulSoup(requests.get(webUrl).text, "lxml")
-    for newWebUrl in webSoup.findAll('a', href=re.compile("^/+..*")):
+    #find 'href' start head '/',at least 2 characters
+    for newWebUrl in webSoup.findAll('a', href=re.compile("^/..*")):
         if newWebUrl is not None:
             webInterList.add(newWebUrl.attrs['href'])
 
     return webInterList
-
-list = webInter("http://www.v2ex.com/")
-for i in list:
-    print i
 

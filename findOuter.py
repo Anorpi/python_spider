@@ -8,12 +8,10 @@ def webOuter(webUrl):
 
     webOuterList = set()
     webSoup = BeautifulSoup(requests.get(webUrl).text, "lxml")
+    # find 'href' start head 'http' or 'www'
     for newWebUrl in webSoup.findAll('a', href=re.compile("^(http|www).*")):
+    # for newWebUrl in webSoup.findAll('a', href=re.compile("^(?!/)+.*")):
         if newWebUrl is not None:
             webOuterList.add(newWebUrl.attrs['href'])
 
     return webOuterList
-
-list = webOuter("http://www.tudou.com/")
-for i in list:
-    print i
