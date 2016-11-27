@@ -11,7 +11,7 @@ def webInter(webUrl):
     #find 'href' start head '/',at least 2 characters
     for newWebUrl in webSoup.findAll('a', href=re.compile("^/..*")):
         if newWebUrl is not None:
-            webInterList.add(newWebUrl.attrs['href'])
+	    webInterList.add(urlparse.urlparse(webUrl).scheme + "://" + urlparse.urlparse(webUrl).netloc + newWebUrl.attrs['href'])
 
     return webInterList
 
@@ -28,7 +28,8 @@ def webOuter(webUrl):
             webOuterList.add(newWebUrl.attrs['href'])
 
     return webOuterList
-c=input()
+#c=input()
+c = 'http://www.google.com'
 print c
 b=webInter(c)
 print "webInter is:"
