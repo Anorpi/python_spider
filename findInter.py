@@ -1,5 +1,5 @@
 import requests,re
-#import urlparse
+import urlparse
 from bs4 import BeautifulSoup
 
 def webInter(webUrl):
@@ -11,7 +11,7 @@ def webInter(webUrl):
     #find 'href' start head '/',at least 2 characters
     for newWebUrl in webSoup.findAll('a', href=re.compile("^/..*")):
         if newWebUrl is not None:
-            webInterList.add(newWebUrl.attrs['href'])
+	    webInterList.add(urlparse.urlparse(webUrl).scheme + "://" + urlparse.urlparse(webUrl).netloc + newWebUrl.attrs['href'])
 
     return webInterList
 
