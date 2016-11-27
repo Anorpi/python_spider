@@ -9,7 +9,7 @@ def webInter(webUrl):
     webInterList = set()
     webSoup = BeautifulSoup(requests.get(webUrl).text, "lxml")
     #find 'href' start head '/',at least 2 characters
-    for newWebUrl in webSoup.findAll('a', href=re.compile("^/..*")):
+    for newWebUrl in webSoup.findAll('a', href=re.compile("^/(?!/)..*")):
         if newWebUrl is not None:
 	    webInterList.add(urlparse.urlparse(webUrl).scheme + "://" + urlparse.urlparse(webUrl).netloc + newWebUrl.attrs['href'])
 
@@ -29,16 +29,17 @@ def webOuter(webUrl):
 
     return webOuterList
 #c=input()
-c = 'http://www.google.com'
-print c
-b=webInter(c)
-print "webInter is:"
-for x in b:
-    print x
+webUrl = 'http://www.google.com/advanced_search?hl=en&authuser=0'
+print "webUrl is:" + webUrl
+for x in webInter(webUrl):
+    print "x is:" + x
+   # for xx in webInter(x):
+   #     print "xx is:" + xx
+    
 
-a=webOuter(c)
-print "webOuter is:"
-for y in a:
-    print y
-
-
+#a=webOuter(c)
+#print "webOuter is:"
+#for y in a:
+#    print y
+#
+#
